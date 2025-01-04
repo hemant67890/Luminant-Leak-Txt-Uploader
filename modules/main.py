@@ -873,10 +873,6 @@ async def process_links(bot, m, links, b_name, count, end_count, raw_text2, res,
             if "jw-prod" in url and (url.endswith(".mp4") or "Expires=" in url):
                 cmd = f'yt-dlp -o "{name}.mp4" "{url}"'
 
-            #if "jw-prod" in url and (url.endswith(".mp4") or "Expires=" in url):
-                #user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"             
-                #cmd = f'yt-dlp -o "{name}.mp4" --user-agent "{user_agent}" "{url}"'
-
             else:
                 cmd = f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
@@ -1041,6 +1037,24 @@ async def process_links(bot, m, links, b_name, count, end_count, raw_text2, res,
                 f"Please check the URL and try again. 🔄\n\n"
                 f"╰────⌈**[𝚉𝙴𝙽𝙸𝚃𝙷 🏅](https://t.me/ZenithOfficialhelp)**⌋────╯"
             )
+            elif "encrypted" in url:
+                await m.reply_text(
+                    f"❌ **Download Failed: Encrypted URL Detected** ❌\n\n"
+                    f"🎬 **Name »** `{name}`\n"
+                    f"🌐 **URL »** `{url}`\n\n"
+                    f"It seems the URL you provided is encrypted or inaccessible for download. "
+                    f"Please verify the URL and try again. If the issue persists, you might need to decrypt the URL or contact the source for assistance. 🔄\n\n"
+                    f"╰────⌈ **[𝚉𝙴𝙽𝙸𝚃𝙷 🏅](https://t.me/ZenithOfficialhelp)** ⌋────╯"
+                )
+            elif ".zip" in url:
+                await m.reply_text(
+                    f"❌ **Download Failed: ZIP File Detected** ❌\n\n"
+                    f"🎬 **Name »** `{name}`\n"
+                    f"🌐 **URL »** `{url}`\n\n"
+                    f"The URL you provided links to a ZIP file, which cannot be processed directly for download. "
+                    f"Please extract the file's contents and ensure the appropriate files are accessible individually. Then, try again. 🔄\n\n"
+                    f"╰────⌈ **[𝚉𝙴𝙽𝙸𝚃𝙷 🏅](https://t.me/ZenithOfficialhelp)** ⌋────╯"
+                )
             else:
                 await m.reply_text(
                 f"**❌ Download Failed! ❌**\n\n"
